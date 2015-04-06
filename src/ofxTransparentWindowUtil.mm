@@ -28,7 +28,8 @@ void removeWindowBarAndTitle(int transparentType) {
 	[window setOpaque:NO];
 	[window setBackgroundColor: [NSColor clearColor]];
 	[window setHasShadow:NO];
-	
+	[window setIgnoresMouseEvents:YES]; // disabling the mouse so you can keep working on window in different levels
+    
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[window setStyleMask:NSBorderlessWindowMask];
 	[pool release];
@@ -70,4 +71,22 @@ void updateView() {
 	NSRectFill([myView bounds]);
 	[pool release];
 
+}
+
+void enableFloating(bool isEnabled){
+    
+    NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
+    NSString *bundleName = [NSString stringWithFormat:@"%@", [info objectForKey:@"CFBundleExecutable"]];
+    std::string standardAppName = [bundleName UTF8String];
+    for(NSWindow * myOFwindow in [NSApp windows])
+    {
+        if([myOFwindow.miniwindowTitle isEqual: [NSString stringWithCString:standardAppName.c_str()]]){
+            continue;
+        }else{
+            if(isEnabled)
+                [myOFwindow setLevel:kCGFloatingWindowLevel];
+            else
+                [myOFwindow setLevel:NSNormalWindowLevel];
+        }
+    }
 }

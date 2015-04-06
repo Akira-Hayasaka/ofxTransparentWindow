@@ -8,5 +8,8 @@
 
 #pragma once
 
+#include <string>
+
 extern void removeWindowBarAndTitle(int transparentType);
 extern void updateView();
+extern void enableFloating(bool isEnabled);

@@ -12,11 +12,11 @@
 #include "ofxTransparentWindowUtil.h"
 //}
 
-void ofxTransparentWindow::afterMainSetup(int transparentType) {
+void ofxTransparentWindow::afterMainSetup(int transparentType, bool enableFloat) {
 	
-	ofSetBackgroundAuto(false);	
-	removeWindowBarAndTitle(transparentType);	
-	
+	ofSetBackgroundAuto(false);
+    enableFloating(enableFloat);    
+	removeWindowBarAndTitle(transparentType);
 }
 
 void ofxTransparentWindow::update() {
